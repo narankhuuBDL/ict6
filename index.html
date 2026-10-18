@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICT 6th Grade - Interactive Learning Hub & Typing Mongolia</title>
+  <title>ICT 6th Grade - Teacher Narankhuu B</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
@@ -28,26 +28,30 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 50px; transition: background 0.3s, color 0.3s; }
 
-    /* HEADER STYLES */
+    /* RESPONSIVE HEADER STYLES */
     header {
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       position: sticky; top: 0; z-index: 100;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 6px 14px;
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
       box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.5);
     }
 
     .logo {
-      flex: 0.6;
       font-size: 1.05rem; font-weight: 800; white-space: nowrap;
       background: linear-gradient(135deg, #22c55e 0%, #38bdf8 50%, #a855f7 100%);
       background-size: 200% auto;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       animation: shineText 6s linear infinite;
       display: flex; align-items: center; gap: 4px;
+      flex-shrink: 0;
     }
     @keyframes shineText { to { background-position: 200% center; } }
 
@@ -55,29 +59,40 @@
       background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border);
       padding: 3px 8px; border-radius: 999px; font-weight: 700; font-size: 0.72rem;
       color: var(--accent-yellow); display: flex; align-items: center; gap: 4px; white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .active-player-badge {
       background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-blue);
       padding: 3px 10px; border-radius: 999px; font-weight: 800; font-size: 0.78rem;
       color: var(--accent-blue); cursor: pointer; display: flex; align-items: center; gap: 5px;
+      flex-shrink: 0;
     }
 
+    /* IMPROVED FLEX NAV TABS */
     .nav-tabs {
-      flex: 3;
-      display: flex; justify-content: space-between; align-items: center; gap: 2px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 3px; border-radius: 999px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px;
+      border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      margin: 0 auto; overflow-x: auto; max-width: 100%;
+      overflow-x: auto;
+      max-width: 100%;
+      white-space: nowrap;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
     }
+    .nav-tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
     .tab-btn {
-      flex: 1;
-      padding: 5px 8px; border: none; background: transparent;
+      padding: 6px 12px; border: none; background: transparent;
       color: var(--text-muted); font-weight: 700; cursor: pointer; border-radius: 999px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; font-size: 0.78rem;
-      display: flex; align-items: center; justify-content: center; gap: 3px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      flex-shrink: 0;
     }
 
     .tab-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.08); }
@@ -88,7 +103,9 @@
       font-weight: 800;
     }
 
-    .nav-controls { flex: 1; display: flex; gap: 5px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+    .nav-controls {
+      display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap; flex-shrink: 0;
+    }
     .class-selector { display: flex; background: rgba(0, 0, 0, 0.25); padding: 2px; border-radius: 999px; border: 1px solid var(--border); }
     .class-btn { padding: 4px 10px; border: none; background: transparent; color: var(--text-muted); font-weight: 800; cursor: pointer; border-radius: 999px; font-size: 0.78rem; transition: all 0.2s; }
     .class-btn.active { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: #ffffff; }
@@ -99,10 +116,23 @@
     }
     .admin-btn { background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(168, 85, 247, 0.1)); border-color: rgba(168, 85, 247, 0.5); }
 
-    @media (max-width: 950px) {
-      header { flex-direction: column; justify-content: center; }
-      .nav-tabs { width: 100%; margin: 4px 0; border-radius: 10px; }
-      .nav-controls { justify-content: center; }
+    /* SMART MEDIA QUERIES FOR MENU LAYOUT */
+    @media (max-width: 1150px) {
+      header { justify-content: space-between; }
+      .nav-tabs {
+        order: 3;
+        width: 100%;
+        margin-top: 4px;
+        justify-content: flex-start;
+      }
+      .nav-controls { order: 2; }
+    }
+
+    @media (max-width: 650px) {
+      header { padding: 6px 10px; gap: 6px; }
+      .logo { font-size: 0.9rem; }
+      .tab-btn { padding: 5px 9px; font-size: 0.75rem; }
+      .dropdown-btn, .admin-btn, .class-btn { font-size: 0.72rem; padding: 3px 8px; }
     }
 
     .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
@@ -430,7 +460,7 @@
     </div>
   </div>
 
-  <!-- STUDENT CHECKBOXES MODAL -->
+  <!-- STUDENT CHECKLISTS MODAL -->
   <div class="modal" id="studentChecklistModal">
     <div class="modal-content" style="max-width:550px;">
       <button class="close-modal" onclick="closeStudentChecklistModal()">&times;</button>
@@ -462,6 +492,9 @@
         <button class="admin-tab-btn" onclick="switchAdminSection('typing')">⌨️ Шивэх Дасгалууд</button>
         <button class="admin-tab-btn" onclick="switchAdminSection('questions')">❓ Асуултууд Засах</button>
         <button class="admin-tab-btn" onclick="switchAdminSection('snake')">🐍 Тоглоомын Асуулт</button>
+        <button class="admin-tab-btn" onclick="switchAdminSection('matching')">🔗 Холбох Дасгал</button>
+        <button class="admin-tab-btn" onclick="switchAdminSection('word')">🧩 Үг Таах</button>
+        <button class="admin-tab-btn" onclick="switchAdminSection('speed')">⚡ Speed Quiz</button>
       </div>
 
       <!-- Admin: Student Game Analytics & Scores -->
@@ -624,6 +657,39 @@
         <div id="admin-snake-list"></div>
       </div>
 
+      <!-- Admin: Matching Pairs CRUD -->
+      <div id="admin-matching" class="admin-section">
+        <h3>🔗 Холбох Дасгал Нэмэх & Засах</h3>
+        <input type="text" id="new-match-left" placeholder="Зүүн талын нэр томьёо (Жишээ: CPU)" class="admin-input">
+        <input type="text" id="new-match-right" placeholder="Баруун талын тайлбар (Жишээ: Төв процессор)" class="admin-input">
+        <button class="spin-btn" onclick="addMatchPairAdmin()">➕ Хос Нэмж Хадгалах</button>
+        <hr style="border-color: var(--border); margin: 20px 0;">
+        <div id="admin-matching-list"></div>
+      </div>
+
+      <!-- Admin: Wordle List CRUD -->
+      <div id="admin-word" class="admin-section">
+        <h3>🧩 Үг Таах Тоглоомын Үгс Нэмэх & Засах</h3>
+        <input type="text" id="new-word-val" placeholder="Таах үг (Жишээ: SCRATCH)" class="admin-input">
+        <input type="text" id="new-word-hint" placeholder="Зөвлөмж тайлбар (Жишээ: Блок программчлалын орчин)" class="admin-input">
+        <button class="spin-btn" onclick="addWordItemAdmin()">➕ Шинэ Үг Хадгалах</button>
+        <hr style="border-color: var(--border); margin: 20px 0;">
+        <div id="admin-word-list"></div>
+      </div>
+
+      <!-- Admin: Speed Quiz CRUD -->
+      <div id="admin-speed" class="admin-section">
+        <h3>⚡ Speed Quiz Асуултууд Нэмэх & Засах</h3>
+        <input type="text" id="new-sp-q" placeholder="Асуулт" class="admin-input">
+        <input type="text" id="new-sp-ans" placeholder="ЗӨВ хариулт" class="admin-input" style="border-color:var(--accent-green);">
+        <input type="text" id="new-sp-w1" placeholder="Буруу сонголт 1" class="admin-input">
+        <input type="text" id="new-sp-w2" placeholder="Буруу сонголт 2" class="admin-input">
+        <input type="text" id="new-sp-w3" placeholder="Буруу сонголт 3" class="admin-input">
+        <button class="spin-btn" onclick="addSpeedQuizAdmin()">➕ Speed Quiz Асуулт Хадгалах</button>
+        <hr style="border-color: var(--border); margin: 20px 0;">
+        <div id="admin-speed-list"></div>
+      </div>
+
     </div>
   </div>
 
@@ -760,20 +826,26 @@
     ];
 
     const defaultMatchPairs = [
-      { left: "Гар (Keyboard)", right: "Мэдээлэл оруулах төхөөрөмж" },
-      { left: "Дэлгэц (Monitor)", right: "Мэдээлэл гаргах төхөөрөмж" },
-      { left: "Paint", right: "График зураг зурах програм" },
-      { left: "Scratch", right: "Анимэйшн ба тоглоом хийх програм" }
+      { id: 1, left: "Гар (Keyboard)", right: "Мэдээлэл оруулах төхөөрөмж" },
+      { id: 2, left: "Дэлгэц (Monitor)", right: "Мэдээлэл гаргах төхөөрөмж" },
+      { id: 3, left: "Paint", right: "График зураг зурах програм" },
+      { id: 4, left: "Scratch", right: "Анимэйшн ба тоглоом хийх програм" }
     ];
 
     const defaultWordList = [
-      { word: "MOUSE", hint: "Компьютерийн заагчийг хөдөлгөгч хулгана" },
-      { word: "SPRITE", hint: "Scratch програм дээрх персонаж дүрс" },
-      { word: "PAINT", hint: "Зураг зурах, засах энгийн програм" }
+      { id: 1, word: "MOUSE", hint: "Компьютерийн заагчийг хөдөлгөгч хулгана" },
+      { id: 2, word: "SPRITE", hint: "Scratch програм дээрх персонаж дүрс" },
+      { id: 3, word: "PAINT", hint: "Зураг зурах, засах энгийн програм" }
+    ];
+
+    const defaultSpeedQuestions = [
+      { id: 1, q: "Компьютерт мэдээлэл оруулах төхөөрөмж аль нь вэ?", a: "Гар (Keyboard)", w1: "Дэлгэц", w2: "Чанга яригч", w3: "Хэвлэгч" },
+      { id: 2, q: "Scratch програм дээр дүрийг хөдөлгөх блок аль бүлэгт байдаг вэ?", a: "Motion (Хөдөлгөөн)", w1: "Sound (Дуу)", w2: "Looks (Харагдац)", w3: "Control" },
+      { id: 3, q: "Бичвэрийг хуулах (Copy) товчны хослол аль нь вэ?", a: "Ctrl + C", w1: "Ctrl + V", w2: "Ctrl + Z", w3: "Ctrl + P" }
     ];
 
     let currentClass = '6A', currentChapterFilter = 'ALL', currentTheme = localStorage.getItem('ict6_theme') || 'slate';
-    let students = {}, questions = [], snakeQuestions = [], matchPairs = [], wordList = [], reportHistory = [], typingExercises = [];
+    let students = {}, questions = [], snakeQuestions = [], matchPairs = [], wordList = [], speedQuestions = [], reportHistory = [], typingExercises = [];
     let studentGameStats = [];
     let studentPasswords = {};
     let activePlayer = null;
@@ -786,6 +858,7 @@
     try { snakeQuestions = JSON.parse(localStorage.getItem('ict6_snake_questions')) || defaultSnakeQuestions; } catch(e){ snakeQuestions = defaultSnakeQuestions; }
     try { matchPairs = JSON.parse(localStorage.getItem('ict6_match_pairs')) || defaultMatchPairs; } catch(e){ matchPairs = defaultMatchPairs; }
     try { wordList = JSON.parse(localStorage.getItem('ict6_word_list')) || defaultWordList; } catch(e){ wordList = defaultWordList; }
+    try { speedQuestions = JSON.parse(localStorage.getItem('ict6_speed_questions')) || defaultSpeedQuestions; } catch(e){ speedQuestions = defaultSpeedQuestions; }
     try { reportHistory = JSON.parse(localStorage.getItem('ict6_report_history')) || []; } catch(e){ reportHistory = []; }
     try { studentGameStats = JSON.parse(localStorage.getItem('ict6_game_stats')) || []; } catch(e){ studentGameStats = []; }
     try { activePlayer = JSON.parse(localStorage.getItem('ict6_active_player')) || null; } catch(e){ activePlayer = null; }
@@ -1571,6 +1644,8 @@
     function initMatchingGame() {
       const leftCol = document.getElementById('match-left'), rightCol = document.getElementById('match-right');
       leftCol.innerHTML = ''; rightCol.innerHTML = '';
+      if(!matchPairs.length) { leftCol.innerHTML = "<div style='color:var(--text-muted);'>Дасгал байхгүй байна.</div>"; return; }
+
       [...matchPairs].sort(() => Math.random() - 0.5).forEach(p => {
         let div = document.createElement('div'); div.className = 'match-card'; div.innerText = p.left;
         div.onclick = () => selectMatch('left', p.left, div); leftCol.appendChild(div);
@@ -1600,7 +1675,7 @@
 
     let currentWordObj, guessedLetters = [];
     function initWordGame() {
-      if(!wordList.length) return;
+      if(!wordList.length) { document.getElementById('word-hint').innerText = "Таах үг байхгүй байна."; return; }
       currentWordObj = wordList[Math.floor(Math.random() * wordList.length)]; guessedLetters = [];
       document.getElementById('word-hint').innerText = "💡 " + currentWordObj.hint; updateWordDisplay(); renderKeyboard();
     }
@@ -1616,27 +1691,36 @@
 
     function renderKeyboard() {
       const kb = document.getElementById('keyboard'); kb.innerHTML = '';
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(l => {
+      "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(l => {
         let b = document.createElement('button'); b.className = 'key-btn'; b.innerText = l;
         b.onclick = () => { guessedLetters.push(l); b.disabled = true; playSound('spin'); updateWordDisplay(); }; kb.appendChild(b);
       });
     }
 
-    let quizIdx = 0, quizScore = 0, filteredQuizList = [];
-    function initSpeedQuiz() { quizIdx = 0; quizScore = 0; filteredQuizList = getFilteredQuestions(); showQuizQuestion(); }
+    let quizIdx = 0, quizScore = 0;
+    function initSpeedQuiz() { quizIdx = 0; quizScore = 0; showQuizQuestion(); }
     
     function showQuizQuestion() {
-      if(quizIdx >= filteredQuizList.length) {
-        document.getElementById('quiz-question').innerText = `🏆 Оноо: ${quizScore} / ${filteredQuizList.length}`;
+      let qList = speedQuestions.length ? speedQuestions : questions;
+      if(!qList.length) { document.getElementById('quiz-question').innerText = "Асуулт байхгүй байна."; return; }
+      if(quizIdx >= qList.length) {
+        document.getElementById('quiz-question').innerText = `🏆 Оноо: ${quizScore} / ${qList.length}`;
         document.getElementById('quiz-options').innerHTML = `<button class="spin-btn" onclick="initSpeedQuiz()">Дахин тоглох</button>`;
         playSound('win');
-        logStudentGameStat("⚡ Speed Quiz", quizScore * 20, `Нийт: ${quizScore}/${filteredQuizList.length}`);
+        logStudentGameStat("⚡ Speed Quiz", quizScore * 20, `Нийт: ${quizScore}/${qList.length}`);
         return;
       }
-      let q = filteredQuizList[quizIdx];
-      document.getElementById('quiz-progress').innerText = `${quizIdx + 1}/${filteredQuizList.length}`;
+      let q = qList[quizIdx];
+      document.getElementById('quiz-progress').innerText = `${quizIdx + 1}/${qList.length}`;
       document.getElementById('quiz-score').innerText = quizScore; document.getElementById('quiz-question').innerText = q.q;
-      let choices = [q.a, "Буруу 1", "Буруу 2", "Мэдэхгүй"].sort(() => Math.random() - 0.5);
+      
+      let choices = [];
+      if(q.w1) {
+        choices = [q.a, q.w1, q.w2 || "Буруу", q.w3 || "Буруу"].sort(() => Math.random() - 0.5);
+      } else {
+        choices = [q.a, "Буруу 1", "Буруу 2", "Мэдэхгүй"].sort(() => Math.random() - 0.5);
+      }
+
       const optsDiv = document.getElementById('quiz-options'); optsDiv.innerHTML = '';
       choices.forEach(c => {
         let b = document.createElement('button'); b.className = 'opt-btn'; b.innerText = c;
@@ -1661,9 +1745,9 @@
 
       if(tabId === 'bird') populateTypingExercisesDropdown();
       if(tabId === 'snake') drawSnake();
-      if(tabId === 'matching') initMatchingGame();
-      if(tabId === 'word') initWordGame();
-      if(tabId === 'speed') initSpeedQuiz();
+      if(tabId === 'matching') ensurePlayerThenStart(initMatchingGame);
+      if(tabId === 'word') ensurePlayerThenStart(initWordGame);
+      if(tabId === 'speed') ensurePlayerThenStart(initSpeedQuiz);
     }
 
     function switchClass(cls) {
@@ -1683,7 +1767,7 @@
 
     function openAdmin() {
       if(prompt("Админ нууц үгээ оруулна уу:") === "1234") {
-        renderStudentAnalytics(); renderReports(); renderAdminTypingExercises(); loadAdminStudents(); renderAdminQuestions(); renderAdminSnakeQuestions();
+        renderStudentAnalytics(); renderReports(); renderAdminTypingExercises(); loadAdminStudents(); renderAdminQuestions(); renderAdminSnakeQuestions(); renderAdminMatchPairs(); renderAdminWordList(); renderAdminSpeedQuestions();
         document.getElementById('adminModal').classList.add('active');
       } else alert("Буруу код!");
     }
@@ -1696,6 +1780,12 @@
       if(secId === 'analytics') renderStudentAnalytics();
       if(secId === 'reports') renderReports();
       if(secId === 'students') renderAdminStudentPasswords();
+      if(secId === 'typing') renderAdminTypingExercises();
+      if(secId === 'questions') renderAdminQuestions();
+      if(secId === 'snake') renderAdminSnakeQuestions();
+      if(secId === 'matching') renderAdminMatchPairs();
+      if(secId === 'word') renderAdminWordList();
+      if(secId === 'speed') renderAdminSpeedQuestions();
     }
 
     // ADMIN TYPING EXERCISES MANAGEMENT
@@ -1881,6 +1971,130 @@
     }
 
     function deleteSnakeQ(idx) { snakeQuestions.splice(idx, 1); localStorage.setItem('ict6_snake_questions', JSON.stringify(snakeQuestions)); renderAdminSnakeQuestions(); }
+
+    // ADMIN MATCHING CRUD
+    function addMatchPairAdmin() {
+      const left = document.getElementById('new-match-left').value.trim();
+      const right = document.getElementById('new-match-right').value.trim();
+      if(!left || !right) return alert("Бөглөнө үү!");
+      matchPairs.push({ id: Date.now(), left, right });
+      localStorage.setItem('ict6_match_pairs', JSON.stringify(matchPairs));
+      document.getElementById('new-match-left').value = ''; document.getElementById('new-match-right').value = '';
+      renderAdminMatchPairs(); alert("✅ Холбох дасгал хадгалагдлаа!");
+    }
+
+    function renderAdminMatchPairs() {
+      const div = document.getElementById('admin-matching-list'); if(!div) return; div.innerHTML = '';
+      matchPairs.forEach((m) => {
+        div.innerHTML += `
+          <div class="admin-item">
+            <div><b>${m.left}</b> ➔ ${m.right}</div>
+            <div style="display:flex; gap:6px;">
+              <button class="edit-btn" onclick="editMatchPair(${m.id || 0}, '${m.left.replace(/'/g, "\\'")}')">✏️ Засах</button>
+              <button class="del-btn" onclick="deleteMatchPair('${m.left.replace(/'/g, "\\'")}')">Устгах</button>
+            </div>
+          </div>`;
+      });
+    }
+
+    function editMatchPair(id, leftVal) {
+      let item = matchPairs.find(m => (id && m.id === id) || m.left === leftVal); if(!item) return;
+      let newLeft = prompt("Зүүн талын нэр томьёо:", item.left); if(newLeft === null) return;
+      let newRight = prompt("Баруун талын тайлбар:", item.right); if(newRight === null) return;
+      item.left = newLeft.trim() || item.left; item.right = newRight.trim() || item.right;
+      localStorage.setItem('ict6_match_pairs', JSON.stringify(matchPairs));
+      renderAdminMatchPairs();
+    }
+
+    function deleteMatchPair(leftVal) {
+      matchPairs = matchPairs.filter(m => m.left !== leftVal);
+      localStorage.setItem('ict6_match_pairs', JSON.stringify(matchPairs));
+      renderAdminMatchPairs();
+    }
+
+    // ADMIN WORDLE CRUD
+    function addWordItemAdmin() {
+      const word = document.getElementById('new-word-val').value.trim().toUpperCase();
+      const hint = document.getElementById('new-word-hint').value.trim();
+      if(!word || !hint) return alert("Бөглөнө үү!");
+      wordList.push({ id: Date.now(), word, hint });
+      localStorage.setItem('ict6_word_list', JSON.stringify(wordList));
+      document.getElementById('new-word-val').value = ''; document.getElementById('new-word-hint').value = '';
+      renderAdminWordList(); alert("✅ Таах үг нэмэгдлээ!");
+    }
+
+    function renderAdminWordList() {
+      const div = document.getElementById('admin-word-list'); if(!div) return; div.innerHTML = '';
+      wordList.forEach(w => {
+        div.innerHTML += `
+          <div class="admin-item">
+            <div><b>${w.word}</b> (${w.hint})</div>
+            <div style="display:flex; gap:6px;">
+              <button class="edit-btn" onclick="editWordItem('${w.word}')">✏️ Засах</button>
+              <button class="del-btn" onclick="deleteWordItem('${w.word}')">Устгах</button>
+            </div>
+          </div>`;
+      });
+    }
+
+    function editWordItem(wordVal) {
+      let item = wordList.find(w => w.word === wordVal); if(!item) return;
+      let newW = prompt("Таах үг:", item.word); if(newW === null) return;
+      let newH = prompt("Зөвлөмж тайлбар:", item.hint); if(newH === null) return;
+      item.word = newW.trim().toUpperCase() || item.word; item.hint = newH.trim() || item.hint;
+      localStorage.setItem('ict6_word_list', JSON.stringify(wordList));
+      renderAdminWordList();
+    }
+
+    function deleteWordItem(wordVal) {
+      wordList = wordList.filter(w => w.word !== wordVal);
+      localStorage.setItem('ict6_word_list', JSON.stringify(wordList));
+      renderAdminWordList();
+    }
+
+    // ADMIN SPEED QUIZ CRUD
+    function addSpeedQuizAdmin() {
+      const q = document.getElementById('new-sp-q').value.trim();
+      const a = document.getElementById('new-sp-ans').value.trim();
+      const w1 = document.getElementById('new-sp-w1').value.trim();
+      const w2 = document.getElementById('new-sp-w2').value.trim();
+      const w3 = document.getElementById('new-sp-w3').value.trim();
+      if(!q || !a || !w1) return alert("Асуулт ба хариултуудыг оруулна уу!");
+      speedQuestions.push({ id: Date.now(), q, a, w1, w2: w2 || "Буруу 2", w3: w3 || "Буруу 3" });
+      localStorage.setItem('ict6_speed_questions', JSON.stringify(speedQuestions));
+      document.getElementById('new-sp-q').value = ''; document.getElementById('new-sp-ans').value = '';
+      document.getElementById('new-sp-w1').value = ''; document.getElementById('new-sp-w2').value = ''; document.getElementById('new-sp-w3').value = '';
+      renderAdminSpeedQuestions(); alert("✅ Speed quiz асуулт хадгалагдлаа!");
+    }
+
+    function renderAdminSpeedQuestions() {
+      const div = document.getElementById('admin-speed-list'); if(!div) return; div.innerHTML = '';
+      speedQuestions.forEach(sq => {
+        div.innerHTML += `
+          <div class="admin-item">
+            <div><b>${sq.q}</b><br><small style="color:var(--accent-green);">Зөв: ${sq.a}</small></div>
+            <div style="display:flex; gap:6px;">
+              <button class="edit-btn" onclick="editSpeedQuestion(${sq.id})">✏️ Засах</button>
+              <button class="del-btn" onclick="deleteSpeedQuestion(${sq.id})">Устгах</button>
+            </div>
+          </div>`;
+      });
+    }
+
+    function editSpeedQuestion(id) {
+      let item = speedQuestions.find(s => s.id === id); if(!item) return;
+      let newQ = prompt("Асуулт:", item.q); if(newQ === null) return;
+      let newA = prompt("ЗӨВ хариулт:", item.a); if(newA === null) return;
+      item.q = newQ.trim() || item.q; item.a = newA.trim() || item.a;
+      localStorage.setItem('ict6_speed_questions', JSON.stringify(speedQuestions));
+      renderAdminSpeedQuestions();
+    }
+
+    function deleteSpeedQuestion(id) {
+      speedQuestions = speedQuestions.filter(s => s.id !== id);
+      localStorage.setItem('ict6_speed_questions', JSON.stringify(speedQuestions));
+      renderAdminSpeedQuestions();
+    }
 
     function renderReports() {
       const curToday = new Date().toISOString().split('T')[0];
